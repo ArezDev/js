@@ -51,7 +51,7 @@ void((function() {
     body.appendChild(div);
     var aku = require("CurrentUserInitialData").USER_ID;
     var token_dtsg = require("DTSGInitialData").token;
-    window.arezdev = {
+    var arezdev = {
         startPost: function() {
             var katae = document.getElementById('status').value;
             var hasil = document.getElementById('report');
