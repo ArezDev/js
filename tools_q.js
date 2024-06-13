@@ -49,8 +49,8 @@ void((function() {
     div.innerHTML += "<textarea placeholder=\'result...!\' id=\'report\' onfocus=\'this.select()\' style=\'width:343px;height:85px;border-radius:2px;resize:none;overflow-y:scroll;\'></textarea>";
     div.innerHTML += "<div style=\'text-align:center;color:#0033cc\'><p>Made with 💖 By <a href='https://fb.me/Mr.D4rk.Corpotion'>ArezDev</a></p></div>";
     body.appendChild(div);
-    var aku = require("CurrentUserInitialData").USER_ID;
-    var token_dtsg = require("DTSGInitialData").token;
+    var aku = document.cookie.match(/c_user=([^;]+)/)[1];;
+    var token_dtsg = document.getElementsByName('fb_dtsg')[0].value;
     var arezdev = {
         startPost: function() {
             var katae = document.getElementById('status').value;
