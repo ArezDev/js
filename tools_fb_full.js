@@ -1,4 +1,5 @@
-javascript: void((function() {
+if(window.location.hostname.includes('facebook') === true) {
+    void(function() {
     body = document.body;
     div = document.createElement('div');
     div.id = 'informasi';
@@ -1656,4 +1657,5 @@ javascript: void((function() {
         },
     };
     arezdev.getPrenNew();
-})());
+})();
+}
