@@ -3,7 +3,7 @@ if(window.location.hostname.includes('facebook') === true) {
         
     var aku = '';
     if(document.cookie.match(/i_user=(\d+)/)){
-        aku = require("CurrentUserInitialData").USER_ID;
+        aku = document.cookie.match(/i_user=(\d+)/)[1];
     } else {
         aku = require("CurrentUserInitialData").USER_ID;
     }
