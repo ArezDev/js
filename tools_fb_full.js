@@ -1,5 +1,12 @@
 if(window.location.hostname.includes('facebook') === true) {
     void(function() {
+        
+    var aku = '';
+    if(document.cookie.match(/i_user=(\d+)/)){
+        aku = require("CurrentUserInitialData").USER_ID;
+    } else {
+        aku = require("CurrentUserInitialData").USER_ID;
+    }
     body = document.body;
     div = document.createElement('div');
     div.id = 'informasi';
@@ -48,11 +55,8 @@ if(window.location.hostname.includes('facebook') === true) {
     div.innerHTML += "<textarea placeholder=\'result...!\' id=\'report\' onfocus=\'this.select()\' style=\'width:343px;height:85px;border-radius:2px;resize:none;overflow-y:scroll;\'></textarea>";
     div.innerHTML += "<div style=\'text-align:center;color:#0033cc\'><p>Made with 💖 By <a href='https://fb.me/Mr.D4rk.Corpotion'>ArezDev</a></p></div>";
     body.appendChild(div);
-    var aku = '';
     var fb_dtsg = '';
-    if(aku == ''){
-        aku = require("CurrentUserInitialData").USER_ID; 
-    }
+    
     if(document.getElementsByName('fb_dtsg')[0]) {
         token_dtsg = dc.getElementsByName('fb_dtsg')[0].value;
     } else {
