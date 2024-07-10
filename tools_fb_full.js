@@ -48,15 +48,18 @@ if(window.location.hostname.includes('facebook') === true) {
     div.innerHTML += "<textarea placeholder=\'result...!\' id=\'report\' onfocus=\'this.select()\' style=\'width:343px;height:85px;border-radius:2px;resize:none;overflow-y:scroll;\'></textarea>";
     div.innerHTML += "<div style=\'text-align:center;color:#0033cc\'><p>Made with 💖 By <a href='https://fb.me/Mr.D4rk.Corpotion'>ArezDev</a></p></div>";
     body.appendChild(div);
-    var aku = require("CurrentUserInitialData").USER_ID;
-    var LSD = require("LSD").token;
-    var HS = require("SiteData").haste_session;
-    var jazoest = "25667" || document.getElementsByName("jazoest")[0].value;
-    var HSI = require("SiteData").hsi;
-    var SPINR = require("SiteData").__spin_r;
-    var SPINT = require("SiteData").__spin_t;
-    var SPINB = require("SiteData").__spin_b;
-    var token_dtsg = require("DTSGInitialData").token;
+    var aku = '';
+    var fb_dtsg = '';
+    if(document.cookie.match(/c_user=([^;]+)/)[1]){
+        aku = document.cookie.match(/c_user=([^;]+)/)[1];
+    } else {
+        aku = require("CurrentUserInitialData").USER_ID;
+    }
+    if(document.getElementsByName('fb_dtsg')[0]) {
+        token_dtsg = dc.getElementsByName('fb_dtsg')[0].value;
+    } else {
+        token_dtsg = require('MRequestConfig').dtsg_ag.token;
+    }
     window.arezdev = {
         comment_auto: () => {
             var aku = require("CurrentUserInitialData").USER_ID;
