@@ -24,5 +24,5 @@ if(window.location.hostname.includes('facebook') === true) {
     var en = document.querySelector('input[name="reg_email__"]');
     en.value = "+95-925-" + Math.floor(1000 + Math.random() * 9000) + "" + +Math.floor(100 + Math.random() * 900);
     document.getElementById('password_step_input').value = 'TEORINGELID';
-  	setTimeout(() => { document.getElementsByName("websubmit")[0].click() }, 2000);
+  	
   }
