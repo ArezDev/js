@@ -1,5 +1,4 @@
-var fbdtsne = require("DTSGInitialData").token;
-    fetch("https://www.facebook.com/v1.0/dialog/oauth/confirm", {
+fetch("https://www.facebook.com/v1.0/dialog/oauth/confirm", {
         "headers": {
           "accept": "*/*",
           "accept-language": "en-US,en;q=0.9",
@@ -13,7 +12,7 @@ var fbdtsne = require("DTSGInitialData").token;
         },
         "referrer": "https://www.facebook.com",
         "referrerPolicy": "strict-origin-when-cross-origin",
-        "body": "------WebKitFormBoundaryX6MJ1UsBbRbz6tAz\r\nContent-Disposition: form-data; name=\'fb_dtsg\'\r\n\r\n"+fbdtsne+"\r\n------WebKitFormBoundaryX6MJ1UsBbRbz6tAz\r\nContent-Disposition: form-data; name=\"app_id\"\r\n\r\n124024574287414\r\n------WebKitFormBoundaryX6MJ1UsBbRbz6tAz\r\nContent-Disposition: form-data; name=\"redirect_uri\"\r\n\r\nfbconnect://success\r\n------WebKitFormBoundaryX6MJ1UsBbRbz6tAz\r\nContent-Disposition: form-data; name=\"display\"\r\n\r\npopup\r\n------WebKitFormBoundaryX6MJ1UsBbRbz6tAz\r\nContent-Disposition: form-data; name=\"ref\"\r\n\r\nDefault\r\n------WebKitFormBoundaryX6MJ1UsBbRbz6tAz\r\nContent-Disposition: form-data; name=\"return_format\"\r\n\r\naccess_token\r\n------WebKitFormBoundaryX6MJ1UsBbRbz6tAz\r\nContent-Disposition: form-data; name=\"sso_device\"\r\n\r\nios\r\n------WebKitFormBoundaryX6MJ1UsBbRbz6tAz\r\nContent-Disposition: form-data; name=\"__CONFIRM__\"\r\n\r\n1\r\n------WebKitFormBoundaryX6MJ1UsBbRbz6tAz--\r\n",
+        "body": "------WebKitFormBoundaryX6MJ1UsBbRbz6tAz\r\nContent-Disposition: form-data; name=\'fb_dtsg\'\r\n\r\n"+window.fb_dtsg+"\r\n------WebKitFormBoundaryX6MJ1UsBbRbz6tAz\r\nContent-Disposition: form-data; name=\"app_id\"\r\n\r\n124024574287414\r\n------WebKitFormBoundaryX6MJ1UsBbRbz6tAz\r\nContent-Disposition: form-data; name=\"redirect_uri\"\r\n\r\nfbconnect://success\r\n------WebKitFormBoundaryX6MJ1UsBbRbz6tAz\r\nContent-Disposition: form-data; name=\"display\"\r\n\r\npopup\r\n------WebKitFormBoundaryX6MJ1UsBbRbz6tAz\r\nContent-Disposition: form-data; name=\"ref\"\r\n\r\nDefault\r\n------WebKitFormBoundaryX6MJ1UsBbRbz6tAz\r\nContent-Disposition: form-data; name=\"return_format\"\r\n\r\naccess_token\r\n------WebKitFormBoundaryX6MJ1UsBbRbz6tAz\r\nContent-Disposition: form-data; name=\"sso_device\"\r\n\r\nios\r\n------WebKitFormBoundaryX6MJ1UsBbRbz6tAz\r\nContent-Disposition: form-data; name=\"__CONFIRM__\"\r\n\r\n1\r\n------WebKitFormBoundaryX6MJ1UsBbRbz6tAz--\r\n",
         "method": "POST",
         "mode": "cors",
         "credentials": "include"
