@@ -5,7 +5,7 @@ if (window.location.hostname.includes('facebook') === true) {
     var f = (Math.random() * dnama.length) | 2;
     var nama = document.getElementsByName('firstname')[0];
     var att = document.createAttribute("value");
-    att.value = dnama[a] + " " + dnama[f];
+    att.value = dnama[a] + " " + dnama[f] + " " + dnama[f];
     nama.setAttributeNode(att);
     var no = document.getElementsByName('reg_email__')[0];
     var att = document.createAttribute("value");
