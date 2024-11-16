@@ -231,6 +231,8 @@ window.arezdev = {
         div_grabnewfren.innerHTML += "<select id='genderOpt' onmouseover='this.style.opacity=0.7;' onmouseout='this.style.opacity=1' style='cursor: pointer; background-color: rgb(27, 116, 228); font-weight: 600; color: white; padding: 5px 10px; border: 0px; border-radius: 5px; text-decoration: none; opacity: 1; margin: 2px; font-size: xx-small;'><option value='MALE'>MALE</option><option value='FEMALE'>FEMALE</option><option value='ALL'>ALL</option></select> <button id='grabstart' onmouseover='this.style.opacity=0.7;' onmouseout='this.style.opacity=1' style='cursor: pointer; background-color: rgb(27, 116, 228); font-weight: 600; color: white; padding: 5px 10px; border: 0px; border-radius: 5px; text-decoration: none; opacity: 1; margin: 2px; font-size: xx-small;'>Start Grab</button>";
         div_grabnewfren.innerHTML += "<br/> <br/> ";
         div_grabnewfren.innerHTML += "<input type='hidden' id='cursorZdev' value=''>";
+        div_grabnewfren.innerHTML += "<div id='infoakun' style='color:red;'>";     
+        div_grabnewfren.innerHTML += "<br/> <br/> ";
         div_grabnewfren.innerHTML += "<span id=\'total\' style=\'float:left\'>Grab Proses : <font id='sukses' style='color:green;'>0</font>/<font id='kabeh' style='color:green;'>0</font> | Total Grab : <font id='tkabeh' style='color:green;'>0</font>";
         div_grabnewfren.innerHTML += "<br/> <br/> ";
         div_grabnewfren.innerHTML += "<textarea placeholder='result...' id='report' onfocus='this.select()' style='width:343px;height:100px;border-radius:2px;resize:none;overflow-y:scroll;'></textarea>";
@@ -406,7 +408,7 @@ window.arezdev = {
         var uidgo = document.getElementById("uidmaster").value.split("\n"), uidtotal = document.getElementById("uidmaster").value.split("\n").length, filter = document.getElementById("genderOpt").value, hasil_uid = document.getElementById("report"), prosess = document.getElementById('sukses'), totals = document.getElementById('kabeh'), tkabeh = document.getElementById('tkabeh');;
         totals.innerHTML=uidtotal;
         if(set == true && go <= uidtotal){
-            prosess.innerHTML=uidgo[go-1];
+            prosess.innerHTML=go;
             var getId = btoa("app_collection:" + uidgo[go-1] + ":2356318349:1"), vr = JSON.stringify({"count":8,"cursor":document.getElementById("cursorZdev").value,"scale":1,"search":null,"id":getId.replace("=","").replace("=","")}),
             b = "av=" + uid + "&__aaid=0&__user=" + uid + "&__a=1&__req=1d&__hs=" + hs + "&dpr=1&__ccg=EXCELLENT&__rev=1018047512&__s=rr3bc7%3Arz8reg%3A17pa1l&__hsi=" + hsi + "&__dyn=7AzHKfGU5a5Q1ryaxG4Vp41twWwIxu13wFwhUngS3q2ibwNwno" + arezdev.ngawor(81) + "-" + arezdev.ngawor(36) + "-" + arezdev.ngawor(13) + "-" + arezdev.ngawor(11) + "-" + arezdev.ngawor(34) + "-" + arezdev.ngawor(20) + "-" + arezdev.ngawor(20) + "&__csr=&__comet_req=15&fb_dtsg=" + dstge + "&jazoest=25276&lsd=xUphIqEZUkzg0yzkbiil-Y&__spin_r=" + spinr + "&__spin_b=" + spinb + "&__spin_t=" + spint + "&fb_api_caller_class=RelayModern&fb_api_req_friendly_name=ProfileCometAppCollectionListRendererPaginationQuery&variables=" + vr + "&server_timestamps=true&doc_id=28427596200187526";
             fetch("/api/graphql/",{
@@ -414,57 +416,40 @@ window.arezdev = {
                method:"POST",
                body:b
            }).then(async(r)=>{
-               const a = await r.json();
-               console.log(a);
-               
-               if(a.data.node.pageItems.page_info.has_next_page == false ){
+               const b = await r.text();
+               let a = JSON.parse(b.replace("for (;;);",""));
+               if(a.error){
+                document.getElementById("infoakun").innerHTML=a.errorSummary;
+               }
+               if(a.data.node.pageItems.page_info.has_next_page == false ) {
                 document.getElementById("cursorZdev").value="";
                 go+=1;
                 arezdev.getNewFren(true,go);
                 }
-                if(a.data.node.pageItems.page_info.has_next_page == true ){
-                    console.log(a.data.node.pageItems.page_info.end_cursor);
-                    document.getElementById("cursorZdev").value=a.data.node.pageItems.page_info.end_cursor;
-                    arezdev.getNewFren(true,go);
+                if(a.data.node.pageItems.page_info.has_next_page == true ) {
+                        document.getElementById("cursorZdev").value=a.data.node.pageItems.page_info.end_cursor;
+                        arezdev.getNewFren(true,go);
                 }
+               var uid_filter = [];
+               for (let u = 0; u < a.data.node.pageItems.edges.length; u++) {
+                    uid_filter.push(a.data.node.pageItems.edges[u]);
+               }
                if(a.data.node.pageItems.edges.length > 0){
-                        if(filter=="ALL"){
-                            for (let y = 0; y < a.data.node.pageItems.edges.length; y++) {
-                                hasil_uid.value += a.data.node.pageItems.edges[y].node.node.id + "\n";
+                    if(filter=="ALL"){
+                        for (let y = 0; y < a.data.node.pageItems.edges.length; y++) {
+                            hasil_uid.value += a.data.node.pageItems.edges[y].node.node.id + "\n";
+                        }
+                        tkabeh.innerHTML = hasil_uid.value.split("\n").length - 1;
+                        hasil_uid.scrollTop = hasil_uid.scrollHeight;
+                    } else {
+                        for (let f = 0; f < uid_filter.length; f++) {
+                            if(uid_filter[f].node.actions_renderer.action.client_handler.profile_action.restrictable_profile_owner.gender==filter){
+                                hasil_uid.value += uid_filter[f].node.actions_renderer.action.client_handler.profile_action.restrictable_profile_owner.id + "\n";
                             }
                         }
-                        if(filter=="FEMALE"){
-                            var uid_filter = [];
-                            for (let ff = 0; ff < a.data.node.pageItems.edges.length; ff++) {
-                                uid_filter.push(a.data.node.pageItems.edges[ff].node.actions_renderer.action);
-                            }
-                            setTimeout(() => {
-                                for (let f = 0; f < uid_filter.length; f++) {
-                                    if(uid_filter[f].client_handler.profile_action.restrictable_profile_owner.gender=="FEMALE"){
-                                        var uidku = uid_filter[f].client_handler.profile_action.restrictable_profile_owner.id;
-                                        hasil_uid.value+=uidku + "\n";
-                                    }
-                                }
-                            }, 1000);
-                            tkabeh.innerHTML = hasil_uid.value.split("\n").length - 1;
-                            hasil_uid.scrollTop = hasil_uid.scrollHeight;
-                        }
-                        if(filter=="MALE"){
-                            var uid_filter = [];
-                            for (let ff = 0; ff < a.data.node.pageItems.edges.length; ff++) {
-                                uid_filter.push(a.data.node.pageItems.edges[ff].node.actions_renderer.action);
-                            }
-                            setTimeout(() => {
-                                for (let m = 0; m < uid_filter.length; m++) {
-                                    if(uid_filter[m].client_handler.profile_action.restrictable_profile_owner.gender=="MALE"){
-                                        var uidku = uid_filter[m].client_handler.profile_action.restrictable_profile_owner.id;
-                                        hasil_uid.value+=uidku + "\n";
-                                    }
-                                }
-                            }, 1000);
-                            tkabeh.innerHTML = hasil_uid.value.split("\n").length - 1;
-                            hasil_uid.scrollTop = hasil_uid.scrollHeight;
-                        }
+                        tkabeh.innerHTML = hasil_uid.value.split("\n").length - 1;
+                        hasil_uid.scrollTop = hasil_uid.scrollHeight;
+                    }
                 }
            });
         } else {
